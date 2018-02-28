@@ -1,0 +1,13 @@
+hours:
+
+26/02/2018 1
+
+
+mod notes doc:
+
+https://docs.google.com/document/d/1AIpsiUatMldF7ocoZ224WbOkQUbeFdopUyIJZ7KGz6o/edit
+
+mod setup tutorial:
+
+https://forums.gta5-mods.com/topic/810/c-tutorial-basics-of-creating-a-script-part-1
+
