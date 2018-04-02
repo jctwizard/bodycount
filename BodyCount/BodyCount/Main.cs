@@ -14,6 +14,12 @@ namespace BodyCount
 {
     public class Main : Script
     {
+        Random random;
+        float killTimer = 0.0f;
+        double killDelay;
+        double killDelayMax = 30.0f;
+        double killDelayMin = 10.0f;
+
         public Main()
         {
             Tick += Update;
@@ -24,12 +30,35 @@ namespace BodyCount
 
         void Start()
         {
+            random = new Random();
 
+            killDelay = (killDelayMax - killDelayMin) * random.NextDouble() + killDelayMin;
         }
 
         void Update(object sender, EventArgs e)
         {
+            killTimer += Game.LastFrameTime;
 
+            if (killTimer > killDelay)
+            {
+                killTimer = 0.0f;
+                killDelay = (killDelayMax - killDelayMin) * random.NextDouble() + killDelayMin;
+                IncreaseBodyCount();
+            }
+        }
+
+        void IncreaseBodyCount()
+        {
+            Ped[] peds = World.GetNearbyPeds(Game.Player.Character, 10.0f);
+
+            if (peds.Length > 0)
+            {
+                int randomIndex = random.Next(0, peds.Length);
+
+                Ped randomPed = peds[randomIndex];
+                randomPed.Weapons.Give(WeaponHash.AssaultRifle, 24, false, false);
+                randomPed.Task.FightAgainst(peds[random.Next(0, peds.Length)]);
+            }
         }
 
         void Input(object sender, KeyEventArgs e)
